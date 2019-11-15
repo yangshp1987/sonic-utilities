@@ -183,9 +183,12 @@ def rifcounters(interface):
     run_command(command)
 
 @cli.command()
-def queuecounters():
+@click.argument('port', metavar='<port_name>', required=False, type=str)
+def queuecounters(port):
     """Clear queue counters"""
     command = "queuestat -c"
+    if port is not None:
+        command = "queuestat -c -P {}".format(port)
     run_command(command)
 
 @cli.command()
